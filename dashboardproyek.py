@@ -5,6 +5,7 @@ import streamlit as st
 from babel.numbers import format_currency
 sns.set(style='dark')
 
+# https://bike-sharing-dataset-qidits.streamlit.app/
 
 st.write(
     """
@@ -98,7 +99,13 @@ plt.xlabel('Season')
 plt.ylabel('Average Count')
 plt.show()
 st.pyplot(plt)
-st.write("Season (1:springer, 2:summer, 3:fall, 4:winter")
+st.write("""
+         Season explanation
+         1: Springer
+         2: Summer
+         3: Fall
+         4: Winter
+         """)
 
 
 st.header("Average by Normalized Humidity")
@@ -133,11 +140,11 @@ plt.ylabel('Average Count')
 plt.show()
 st.pyplot(plt)
 st.write("""
-         Weathersit : 
-		- 1: Clear, Few clouds, Partly cloudy, Partly cloudy
-		- 2: Mist + Cloudy, Mist + Broken clouds, Mist + Few clouds, Mist
-		- 3: Light Snow, Light Rain + Thunderstorm + Scattered clouds, Light Rain + Scattered clouds)
-         """)
+        Weathersit: 
+        1: Clear, Few clouds, Partly cloudy, Partly cloudy
+	2: Mist + Cloudy, Mist + Broken clouds, Mist + Few clouds, Mist
+	3: Light Snow, Light Rain + Thunderstorm + Scattered clouds, Light Rain + Scattered clouds)
+        """)
 
 
 st.header("Average by Normalized Windspeed")
@@ -170,6 +177,40 @@ plt.xlabel('Temperature')
 plt.ylabel('Count')
 plt.show()
 st.pyplot(plt)
+
+
+st.title("RFM (Recency, Frequency, Monetary)")
+st.subheader("Advanced Analysis: Recency by Date")
+st.write("To know the date of the last recorded sale along with the amount of rents")
+data = {'cnt': [2729, 1796, 1341, 3095, 2114],
+        'date': ['2012-12-31', '2012-12-30', '2012-12-29', '2012-12-28', '2012-12-27']}
+df = pd.DataFrame(data)
+plt.figure(figsize=(10, 6))
+sns.barplot(x='date', y='cnt', data=df, palette='viridis')
+plt.title('Bike Rental Count by Date')
+plt.xlabel('Date')
+plt.ylabel('Count (Mean)')
+plt.xticks(rotation=45)
+plt.show()
+
+st.subheader("Advanced Analysis: Frequency by Date")
+st.write("To know how often bicycles are rented based on the time of day. Every day and even every hour there is always bicycle rental activity, so the narrowest index (hr) is taken and searched using the average number of users in that hour to find out at what time the most frequent bicycle rental occurs.")
+data = {'hr': [17, 18, 8, 16, 19, 13, 12, 15, 14, 20, 9, 7, 11, 10, 21, 22, 23, 6, 0, 1, 2, 3, 5, 4],
+        'value': [461.452055, 425.510989, 359.011004, 311.983562, 311.523352, 253.661180, 253.315934,
+                  251.233196, 240.949246, 226.030220, 219.309491, 212.064649, 208.143054, 173.668501,
+                  172.314560, 131.335165, 87.831044, 76.044138, 53.898072, 33.375691, 22.869930,
+                  19.889819, 11.727403, 6.352941]}
+df = pd.DataFrame(data)
+df = df.sort_values(by='hr')
+plt.figure(figsize=(10, 6))
+sns.barplot(x='hr', y='value', data=df, palette='viridis')
+plt.title('Values by Hour')
+plt.xlabel('Hour')
+plt.ylabel('Count (Mean)')
+plt.show()
+
+st.subheader("Advanced Analysis: Monetary by Season")
+st.write("To know in which season the bicycle rental service generates the most income is calculated from the total number of bicycle rental users including Casual and Registered.")
 
 st.title("Conclusion")
 st.write(""" 
