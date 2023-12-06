@@ -101,10 +101,10 @@ plt.show()
 st.pyplot(plt)
 st.write("""
          Season explanation
-         1: Springer
-         2: Summer
-         3: Fall
-         4: Winter
+         1: Springer;
+         2: Summer;
+         3: Fall;
+         4: Winter;
          """)
 
 
@@ -141,8 +141,8 @@ plt.show()
 st.pyplot(plt)
 st.write("""
         Weathersit: 
-        1: Clear, Few clouds, Partly cloudy, Partly cloudy
-	2: Mist + Cloudy, Mist + Broken clouds, Mist + Few clouds, Mist
+        1: Clear, Few clouds, Partly cloudy, Partly cloudy;
+	2: Mist + Cloudy, Mist + Broken clouds, Mist + Few clouds, Mist;
 	3: Light Snow, Light Rain + Thunderstorm + Scattered clouds, Light Rain + Scattered clouds)
         """)
 
@@ -192,6 +192,7 @@ plt.xlabel('Date')
 plt.ylabel('Count (Mean)')
 plt.xticks(rotation=45)
 plt.show()
+st.pyplot(plt)
 
 st.subheader("Advanced Analysis: Frequency by Date")
 st.write("To know how often bicycles are rented based on the time of day. Every day and even every hour there is always bicycle rental activity, so the narrowest index (hr) is taken and searched using the average number of users in that hour to find out at what time the most frequent bicycle rental occurs.")
@@ -208,9 +209,27 @@ plt.title('Values by Hour')
 plt.xlabel('Hour')
 plt.ylabel('Count (Mean)')
 plt.show()
+st.pyplot(plt)
 
 st.subheader("Advanced Analysis: Monetary by Season")
 st.write("To know in which season the bicycle rental service generates the most income is calculated from the total number of bicycle rental users including Casual and Registered.")
+data = {'season': [3, 2, 4, 1],
+        'cnt.mean': [5644.303191, 4992.331522, 4728.162921, 2604.132597]}
+df = pd.DataFrame(data)
+plt.figure(figsize=(8, 6))
+sns.barplot(x='season', y='cnt.mean', data=df, palette='coolwarm')
+plt.title('Bike Rental Count by Season')
+plt.xlabel('Season')
+plt.ylabel('Count (Mean)')
+plt.show()
+st.pyplot(plt)
+st.write("""
+         Season explanation
+         1: Springer
+         2: Summer
+         3: Fall
+         4: Winter
+         """)
 
 st.title("Conclusion")
 st.write(""" 
